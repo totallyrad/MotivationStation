@@ -1,8 +1,17 @@
 # outline of project
 # - wait for input from user + attract mode led
-# - on input play jingle mp3 + led animation
-# - then play a random mp3 from a specific folder and play a randomly selected led animation
-# - at end of mp3 stops all leds then returns to attract mode
+# - on input play jingle mp3 + led animation (this will likely need to be timed to coordinate)
+# - then play a random mp3 from a specific folder and sets LEDs back to attract mode
+# - at end of mp3 goes back to top of loop
+
+# right now we are using mpg321 for mp3 playback. 
+# may want to look at other options that allow code to be run when an mp3 is done
+# this would allow for greater flexibility in running LEDs
+
+# LEDs the plan at the moment is to run ws2801 LEDs off an arduino
+# which receives commands to run specific sequences from a raspberry pi
+# for now the plan is to do it over digital pin hi/lo
+# but I should investigate spi/serial options down the road
 
 #!/usr/bin/env python
 
@@ -12,12 +21,13 @@ import RPi.GPIO as GPIO
 
 #setup buttons as inputs
 GPIO.setmode(GPIO.BCM)
-#sSets up GPIO pins
+#Sets up GPIO pin 23 as input. This can be changed later to another input type if desired. 
 GPIO.setup(23, GPIO.IN)
 
 #sets "playing" to false
 #this lets us stop the player
 #on a press if the sound is playing  
+#this is from a p revious project and MAY not be needed in this one
 
 playing=0
 
