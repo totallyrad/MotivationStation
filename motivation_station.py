@@ -26,7 +26,7 @@ while True:
         #if a sound is not playing do this
         if ( playing == 0):
                 #if someone pressons button one play one file
-                               if ( GPIO.input(18) == False ):
+                        if ( GPIO.input(18) == False ):
                         randomfile = random.choice(os.listdir("/home/pi/Motivation"))
                         file = '/home/pi/Motivation/' + randomfile
 
