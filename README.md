@@ -11,8 +11,7 @@ This code is built for the Raspberry Pi on Raspbian (Jesse)
 
 Installing Software on Pi
 
-sudo apt-get install alsa-utils mpg123
-sudo apt-get install python-dev python-rpi.gpio
+sudo apt-get install alsa-utils mpg123 python-dev python-rpi.gpio
 
 We specify "/home/pi/Motivation" in the code, this can be changed if you would like, but to use in it's default setting:
 
