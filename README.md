@@ -26,3 +26,15 @@ I used GPIO 18, you can feel free to adjust the code to your liking.
 
 The button should have a 10k Pull Up Resistor.
 
+CURRENT ISSUES:
+
+Currently you have to hold the button in for a moment for the code to run. Not ideal.
+
+NEXT STEPS:
+
+Next step is to move to using an inturrupt. This tutorial documents how I plan to do it:
+
+http://raspi.tv/2013/how-to-use-interrupts-with-python-on-the-raspberry-pi-and-rpi-gpio
+
+After that will be figuring out how to control LEDs to do something when the button is pressed.
+
