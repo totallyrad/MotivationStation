@@ -32,9 +32,8 @@ Currently you have to hold the button in for a moment for the code to run. Not i
 
 NEXT STEPS:
 
-Next step is to move to using an inturrupt. This tutorial documents how I plan to do it:
 
-http://raspi.tv/2013/how-to-use-interrupts-with-python-on-the-raspberry-pi-and-rpi-gpio
 
 After that will be figuring out how to control LEDs to do something when the button is pressed.
 
+https://learn.adafruit.com/neopixels-on-raspberry-pi/software
