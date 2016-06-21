@@ -59,12 +59,8 @@ The button should have a 10k Pull Up Resistor.
 
 CURRENT ISSUES:
 
-Currently you have to hold the button in for a moment for the code to run. Not ideal.
+NONE THE FUCKER WORKS
 
 NEXT STEPS:
 
-
-
-After that will be figuring out how to control LEDs to do something when the button is pressed.
-
-https://learn.adafruit.com/neopixels-on-raspberry-pi/software
+At some point i want to integrate the LEDs. For now they are going to run separate with an arduino or ws2811 controller. 
