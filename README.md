@@ -11,11 +11,11 @@ This code is built for the Raspberry Pi on Raspbian (Jesse)
 
 Installing Software on Pi
 
-sudo apt-get install alsa-utils mpg123 python-dev python-rpi.gpio
+sudo apt-get install alsa-utils mpg321 python-dev python-rpi.gpio
 
 We specify "/home/pi/Motivation" in the code, this can be changed if you would like, but to use in it's default setting:
 
-Create a folder named "Motivation" in "/home/pi/". 
+Create a folder named "Motivation" in "/home/pi/". using mkdir -m 777 Motivation while in "/home/pi/"
 This folder is where you house your audio recordings.
 I tend to access this folder via sftp as it's ready to go with stock Raspbian
 Copying any files to this folder adds them to the potential lsit of files played. 
