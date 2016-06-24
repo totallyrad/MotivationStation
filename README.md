@@ -15,7 +15,110 @@ This code is built for the Raspberry Pi on Raspbian Lite (Jesse)
 
   sudo apt-get upgrade
 
-*Installing Software on Pi
+*Wireless AP for uploading recordings
+
+-References:
+http://www.novaspirit.com/2015/12/16/raspberry-pi-wifi-hotspot-router-file-share-media-server/
+http://www.daveconroy.com/turn-your-raspberry-pi-into-a-wifi-hotspot-with-edimax-nano-usb-ew-7811un-rtl8188cus-chipset/
+
+Remove WPA Supplicant
+
+  sudo apt-get purge wpasupplicant
+
+install dhcp server
+
+  sudo apt-get install isc-dhcp-server
+
+
+
+setup dhcp
+
+  sudo nano /etc/dhcp/dhcpd.conf
+
+and add the following:
+
+  subnet 10.10.0.0 netmask 255.255.255.0 {
+  range 10.10.0.25 10.10.0.50;
+  option domain-name-servers 8.8.4.4;
+  option routers 10.10.0.1;
+  interface wlan0;
+  }
+
+setup hostapd
+
+sudo apt-get install hostapd
+
+  wget http://www.daveconroy.com/wp3/wp-content/uploads/2013/07/hostapd.zip
+  unzip hostapd.zip 
+  sudo mv /usr/sbin/hostapd /usr/sbin/hostapd.bak
+  sudo mv hostapd /usr/sbin/hostapd.edimax 
+  sudo ln -sf /usr/sbin/hostapd.edimax /usr/sbin/hostapd 
+  sudo chown root.root /usr/sbin/hostapd 
+  sudo chmod 755 /usr/sbin/hostapd
+  
+  
+  sudo nano /etc/hostapd/hostapd.conf
+  
+  interface=wlan0
+  driver=rtl871xdrv
+  bridge=br0
+  ssid=INSERT NAME OF AP HERE
+  channel=1
+  wmm_enabled=0
+  wpa=1
+  wpa_passphrase=CHANGE THIS PASSWORD
+  wpa_key_mgmt=WPA-PSK
+  wpa_pairwise=TKIP
+  rsn_pairwise=CCMP
+  auth_algs=1
+  macaddr_acl=0
+  
+setup interfaces
+
+  sudo nano /etc/network/interfaces
+  
+  #looopback adapter
+  auto lo
+  iface lo inet loopback
+  #wired adapter
+  iface eth0 inet dhcp
+  #wlan
+  allow-hotplug wlan0
+  iface wlan0 inet static
+  address 10.10.0.1
+  netmask 255.255.255.0
+  
+Test for errors
+
+  sudo ifconfig wlan0 10.10.0.1
+  sudo /etc/init.d/isc-dhcp-server restart
+  sudo hostapd -d /etc/hostapd/hostapd.conf
+  
+Make wireless AP persistent
+
+  sudo nano /etc/network/interfaces
+  
+and add the following:
+  
+  auto wlan0
+  iface wlan0 inet static
+  address 10.10.0.1
+  netmask 255.255.255.0
+  
+  sudo nano /etc/rc.local  
+
+and add the following:
+
+  hostapd -B /etc/hostapd/hostapd.conf
+  iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+  
+  sudo nano /etc/sysctl.conf
+  
+And add the following:
+
+  net.ipv4.ip_forward = 0
+
+*Installing MotivationStation on Pi
 
   sudo apt-get install alsa-utils mpg321 python-dev python-rpi.gpio
 
