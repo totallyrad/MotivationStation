@@ -48,6 +48,10 @@ setup hostapd
 
 sudo apt-get install hostapd
 
+Special Edimax Steps
+
+  I am using Edimax Nano USB EW-7811Un (RTL8188CUS chipset) wifi dongle so the following sets are only needed if you use this Chipset. Other dongles that support AP mode should work without this step.
+
   wget http://www.daveconroy.com/wp3/wp-content/uploads/2013/07/hostapd.zip
   unzip hostapd.zip 
   sudo mv /usr/sbin/hostapd /usr/sbin/hostapd.bak
@@ -55,7 +59,8 @@ sudo apt-get install hostapd
   sudo ln -sf /usr/sbin/hostapd.edimax /usr/sbin/hostapd 
   sudo chown root.root /usr/sbin/hostapd 
   sudo chmod 755 /usr/sbin/hostapd
-  
+ 
+ IF USING EDIMAX USE: 
   
   sudo nano /etc/hostapd/hostapd.conf
   
@@ -71,6 +76,20 @@ sudo apt-get install hostapd
   wpa_pairwise=TKIP
   rsn_pairwise=CCMP
   auth_algs=1
+  macaddr_acl=0
+  
+IF NOT USE:
+
+  interface=wlan0
+  driver=nl80211
+  ssid=INSERT NAME OF AP HERE
+  hw_mode=g
+  channel=11
+  wpa=1
+  wpa_passphrase=CHANGE THIS PASSWORD
+  wpa_key_mgmt=WPA-PSK
+  wpa_pairwise=TKIP CCMP
+  wpa_ptk_rekey=600
   macaddr_acl=0
   
 setup interfaces
@@ -158,7 +177,24 @@ Copying any files to this folder adds them to the potential lsit of files played
 
 I used GPIO 18, you can feel free to adjust the code to your liking. 
 
-The button should have a 10k Pull Up Resistor.
+The button should have a 10k Pull Up Resistor but doesn't seem to need it so ¯\_(ツ)_/¯
+
+RECORDING AND UPLOADING FROM ANDROID
+
+Connect to the wireless network you created and login with the credentials.
+
+Recording can be done on any Android device (I assume iOS but never tested)
+
+Format must record in mp3, I've had luck with RecForge since it recordin in mp3 format (no need to convert) and had a built in editor. 
+
+File Transfer is done over sftp. Any FTP app will work that support it, I use AndFTP.
+
+Point at 10.10.0.1 and enter your pi username and password (NOT WiFi pass)
+
+Navigate to the /Motivation folder and upload your mp3s
+
+Reboot the pi and the new audio will get incorporated!
+
 
 CURRENT ISSUES:
 
